@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">VKInfo</string>
+    <string name="id">Введите VK ID</string>
+    <string name="create_button">Показать</string>
+    <string name="add_button">+</string>
+    <string name="results_hint">Здесь будут результаты поиска</string>
+
+    <string name="error_message">Произошла ошибка. Попробуйте ещё раз</string>
+</resources>
