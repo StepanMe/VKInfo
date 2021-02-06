@@ -33,12 +33,9 @@ public class NetworkUtils {
         URL url = null;
         try {
             url = new URL(buildUri.toString());
-            Log.i("A123A","NetworkUtils.java, строка 36 - OK");
         } catch (MalformedURLException e) {
-            Log.i("A123A","NetworkUtils.java, строка 38 - Error");
             e.printStackTrace();
         }
-        Log.i("A123A","NetworkUtils.java, строка 41 - OK");
         return url;
     }
 
@@ -52,14 +49,11 @@ public class NetworkUtils {
 
             boolean hasNext = scanner.hasNext();
             if (hasNext) {
-                Log.i("A123A","NetworkUtils.java, строка 55 - OK");
                 return scanner.next();
             } else {
-                Log.i("A123A","NetworkUtils.java, строка 58 - Error");
                 return null;
             }
         } catch (UnknownHostException e) {
-            Log.i("A123A","NetworkUtils.java, строка 62 - Error");
             return null;
         } finally {
             urlConnection.disconnect();

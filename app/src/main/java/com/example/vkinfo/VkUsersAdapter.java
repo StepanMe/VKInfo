@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class VkUsersAdapter extends RecyclerView.Adapter<VkUsersAdapter.ViewHolder> {
 
@@ -54,13 +53,6 @@ public class VkUsersAdapter extends RecyclerView.Adapter<VkUsersAdapter.ViewHold
     @Override
     public int getItemCount() {
         return vkUserList.size();
-/*
-        if (vkUserList != null && !vkUserList.isEmpty()){
-            return vkUserList.size();
-        }
-        else {
-            return 0;
-        }*/
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

@@ -1,9 +1,5 @@
 package com.example.vkinfo;
 
-import android.util.Log;
-
-import java.util.ArrayList;
-
 public class VKUser {
     private String id;
     private String firstName;

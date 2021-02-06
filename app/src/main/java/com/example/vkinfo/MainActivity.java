@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,12 +38,12 @@ public class MainActivity extends AppCompatActivity {
     private void showResultTextView() {
         errorMessage.setVisibility(View.INVISIBLE);
         loadingIndicator.setVisibility(View.INVISIBLE);
-    };
+    }
 
     private void showErrorTextView() {
         errorMessage.setVisibility(View.VISIBLE);
         loadingIndicator.setVisibility(View.INVISIBLE);
-    };
+    }
 
     class VKQueryTask extends AsyncTask<URL, Void, ArrayList<VKUser>> {
 
@@ -55,10 +54,10 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected ArrayList<VKUser> doInBackground(URL... urls) {
-            String id = null;
-            String firstName = null;
-            String lastName = null;
-            String avatar = null;
+            String id;
+            String firstName;
+            String lastName;
+            String avatar;
 
             String response = null;
             try {
@@ -112,20 +111,16 @@ public class MainActivity extends AppCompatActivity {
         errorMessage = findViewById(R.id.tv_error_message);
         loadingIndicator = findViewById(R.id.pd_loading_indicator);
 
-        contacts = new ArrayList<VKUser>();
+        contacts = new ArrayList<>();
 
-        View.OnClickListener clickCreateButton = new View.OnClickListener() {
+        View.OnClickListener clickCreateButton = view -> {
+            URL generatedURL = generateURL(searchField.getText().toString());
+            new VKQueryTask().execute(generatedURL);
 
-            @Override
-            public void onClick(View view) {
-                URL generatedURL = generateURL(searchField.getText().toString());
-                new VKQueryTask().execute(generatedURL);
-
-                VkUsersAdapter vkUsersAdapter = new VkUsersAdapter(contacts);
-                recyclerView.setAdapter(vkUsersAdapter);
+            VkUsersAdapter vkUsersAdapter = new VkUsersAdapter(contacts);
+            recyclerView.setAdapter(vkUsersAdapter);
 //                recyclerView.setHasFixedSize(true);
-                recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-            }
+            recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         };
         createButton.setOnClickListener(clickCreateButton);
     }
