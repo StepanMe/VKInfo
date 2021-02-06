@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,12 +27,12 @@ import static com.example.vkinfo.utils.NetworkUtils.getResponseFromURL;
 public class MainActivity extends AppCompatActivity {
 
     private EditText searchField;
-    private Button createButton;
+    private Button requestButton;
     private TextView errorMessage;
     private ProgressBar loadingIndicator;
     private JSONArray vkUsersArray;
-    ArrayList<VKUser> contacts;
-    private RecyclerView recyclerView;
+    public ArrayList<VKUser> contacts = new ArrayList<>();
+    public RecyclerView recyclerView;
 
     private void showResultTextView() {
         errorMessage.setVisibility(View.INVISIBLE);
@@ -50,16 +49,18 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute(){
             loadingIndicator.setVisibility(View.VISIBLE);
+//            contacts = new ArrayList<>();
+            contacts.clear();
         }
 
         @Override
         protected ArrayList<VKUser> doInBackground(URL... urls) {
-            String id;
-            String firstName;
-            String lastName;
-            String avatar;
-
+//            String id;
+//            String firstName;
+//            String lastName;
+//            String avatar;
             String response = null;
+
             try {
                 response = getResponseFromURL(urls[0]);
             } catch (IOException e){
@@ -68,33 +69,45 @@ public class MainActivity extends AppCompatActivity {
 
             if (response != null && !response.isEmpty()) {
                 try {
-                    contacts.clear();
                     JSONObject jsonResponse = new JSONObject(response);
                     JSONArray jsonArray = jsonResponse.getJSONArray("response");
 
                     for (int i = 0; i < jsonArray.length(); i++){
                         JSONObject userInfo = jsonArray.getJSONObject(i);
-
-                        id = userInfo.getString("id");
-                        avatar = userInfo.getString("photo_50");
-                        firstName = userInfo.getString("first_name");
-                        lastName = userInfo.getString("last_name");
-
-                        contacts.add(new VKUser(id,firstName,lastName,avatar));
+                        contacts.add(new VKUser(userInfo.getString("id"),
+                                                userInfo.getString("first_name"),
+                                                userInfo.getString("last_name"),
+                                                userInfo.getString("photo_50")));
+//
+//                        id = userInfo.getString("id");
+//                        avatar = userInfo.getString("photo_50");
+//                        firstName = userInfo.getString("first_name");
+//                        lastName = userInfo.getString("last_name");
+//
+//                        contacts.add(new VKUser(id,firstName,lastName,avatar));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 showResultTextView();
-//                return contacts;
+                Log.i("AZ1","Размер contacts: " + contacts.size());
+                return contacts;
             } else {
                 showErrorTextView();
             }
-            return contacts;
+            return null;
         }
 
-        protected void onPostExecute() {
+        @Override
+        protected void onPostExecute(ArrayList<VKUser> usr) {
+            super.onPostExecute(usr);
             loadingIndicator.setVisibility(View.INVISIBLE);
+            Log.i("AZ1","Размер массива contacts: " + contacts.size());
+            VkUsersAdapter vkUsersAdapter = new VkUsersAdapter(contacts);
+
+            recyclerView.setAdapter(vkUsersAdapter);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         }
     }
 
@@ -106,22 +119,21 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.rv_results);
         searchField = findViewById(R.id.et_search_field);
-        createButton = findViewById(R.id.b_create);
+        requestButton = findViewById(R.id.b_create);
 
         errorMessage = findViewById(R.id.tv_error_message);
         loadingIndicator = findViewById(R.id.pd_loading_indicator);
 
-        contacts = new ArrayList<>();
-
         View.OnClickListener clickCreateButton = view -> {
             URL generatedURL = generateURL(searchField.getText().toString());
             new VKQueryTask().execute(generatedURL);
-
-            VkUsersAdapter vkUsersAdapter = new VkUsersAdapter(contacts);
-            recyclerView.setAdapter(vkUsersAdapter);
-//                recyclerView.setHasFixedSize(true);
-            recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         };
-        createButton.setOnClickListener(clickCreateButton);
+        requestButton.setOnClickListener(clickCreateButton);
+
+//        VkUsersAdapter vkUsersAdapter = new VkUsersAdapter(contacts);
+//        recyclerView.setAdapter(vkUsersAdapter);
+//        recyclerView.setHasFixedSize(true);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+
     }
 }
