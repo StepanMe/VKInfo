@@ -27,7 +27,7 @@ public class ProfileActivity extends AppCompatActivity {
         tvUserFullName = findViewById(R.id.user_fullname);
         ivUserAvatar = findViewById(R.id.user_avatar);
 
-        String userId = (String) getIntent().getExtras().get(USER_ID);
+        String userId = getIntent().getExtras().get(USER_ID).toString();
         String userFirstName = (String) getIntent().getExtras().get(USER_FIRST_NAME);
         String userLastName = (String) getIntent().getExtras().get(USER_LAST_NAME);
         String userAvatar = (String) getIntent().getExtras().get(USER_AVATAR);
