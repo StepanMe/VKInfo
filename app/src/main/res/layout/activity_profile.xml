@@ -7,10 +7,18 @@
     android:orientation="vertical"
     tools:context=".ProfileActivity">
 
-    <ImageView
-        android:id="@+id/user_avatar"
+    <LinearLayout
+        android:id="@+id/lv_container"
         android:layout_width="match_parent"
-        android:layout_height="400dp"/>
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/user_avatar"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"/>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/user_fullname"
