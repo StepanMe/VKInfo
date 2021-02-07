@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     private Button requestButton;
     private TextView errorMessage;
     private ProgressBar loadingIndicator;
-    private JSONArray vkUsersArray;
     public ArrayList<VKUser> contacts = new ArrayList<>();
     public RecyclerView recyclerView;
 
@@ -49,16 +47,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute(){
             loadingIndicator.setVisibility(View.VISIBLE);
-//            contacts = new ArrayList<>();
             contacts.clear();
         }
 
         @Override
         protected ArrayList<VKUser> doInBackground(URL... urls) {
-//            String id;
-//            String firstName;
-//            String lastName;
-//            String avatar;
+
             String response = null;
 
             try {
@@ -77,20 +71,13 @@ public class MainActivity extends AppCompatActivity {
                         contacts.add(new VKUser(userInfo.getString("id"),
                                                 userInfo.getString("first_name"),
                                                 userInfo.getString("last_name"),
-                                                userInfo.getString("photo_50")));
-//
-//                        id = userInfo.getString("id");
-//                        avatar = userInfo.getString("photo_50");
-//                        firstName = userInfo.getString("first_name");
-//                        lastName = userInfo.getString("last_name");
-//
-//                        contacts.add(new VKUser(id,firstName,lastName,avatar));
+                                                userInfo.getString("photo_200")));
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 showResultTextView();
-                Log.i("AZ1","Размер contacts: " + contacts.size());
                 return contacts;
             } else {
                 showErrorTextView();
@@ -102,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(ArrayList<VKUser> usr) {
             super.onPostExecute(usr);
             loadingIndicator.setVisibility(View.INVISIBLE);
-            Log.i("AZ1","Размер массива contacts: " + contacts.size());
             VkUsersAdapter vkUsersAdapter = new VkUsersAdapter(contacts);
 
             recyclerView.setAdapter(vkUsersAdapter);
@@ -129,11 +115,5 @@ public class MainActivity extends AppCompatActivity {
             new VKQueryTask().execute(generatedURL);
         };
         requestButton.setOnClickListener(clickCreateButton);
-
-//        VkUsersAdapter vkUsersAdapter = new VkUsersAdapter(contacts);
-//        recyclerView.setAdapter(vkUsersAdapter);
-//        recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-
     }
 }

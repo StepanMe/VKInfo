@@ -22,14 +22,14 @@ public class NetworkUtils {
 
     /*
 
-    https://api.vk.com/method/users.get?user_ids=1,2,3,4,5&fields=photo_50&access_token=f9b838c9f9b838c9f9b838c9f4f9ce22e5ff9b8f9b838c999b6f271a1e07182687a7184&v=5.126
+    https://api.vk.com/method/users.get?user_ids=1,2,3,4,5&fields=photo_200&access_token=f9b838c9f9b838c9f9b838c9f4f9ce22e5ff9b8f9b838c999b6f271a1e07182687a7184&v=5.126
 
     */
     public static URL generateURL(String userIds){
         Uri buildUri = Uri.parse(VK_API_BASE_URL + VK_API_METHOD)
                 .buildUpon()
                 .appendQueryParameter(PARAM_USER_IDS,userIds)
-                .appendQueryParameter(PARAM_FIELDS,"photo_50")
+                .appendQueryParameter(PARAM_FIELDS,"photo_200")
                 .appendQueryParameter(PARAM_VERSION,"5.126")
                 .appendQueryParameter(PARAM_ACCESS_KEY,"f9b838c9f9b838c9f9b838c9f4f9ce22e5ff9b8f9b838c999b6f271a1e07182687a7184")
                 .appendQueryParameter(PARAM_LANG,"ru")

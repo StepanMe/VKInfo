@@ -6,6 +6,13 @@ public class VKUser {
     private String lastName;
     private String avatarLink;
 
+    public VKUser(String id, String firstName, String lastName, String avatarLink) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.avatarLink = avatarLink;
+    }
+
     public String getId() {
         return id;
     }
@@ -38,10 +45,4 @@ public class VKUser {
         this.avatarLink = avatarLink;
     }
 
-    public VKUser(String id, String firstName, String lastName, String avatarLink) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.avatarLink = avatarLink;
-    }
 }

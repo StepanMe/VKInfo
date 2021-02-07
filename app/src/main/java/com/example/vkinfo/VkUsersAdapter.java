@@ -1,6 +1,8 @@
 package com.example.vkinfo;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +50,15 @@ public class VkUsersAdapter extends RecyclerView.Adapter<VkUsersAdapter.ViewHold
 
         ImageView ava = holder._avatar;
         Picasso.get().load(vkUser.getAvatarLink()).into(ava);
+
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(view.getContext(),ProfileActivity.class);
+            intent.putExtra("userId", vkUser.getId());
+            intent.putExtra("userFirstName",vkUser.getFirstName());
+            intent.putExtra("userLastName",vkUser.getLastName());
+            intent.putExtra("userAvatar",vkUser.getAvatarLink());
+            view.getContext().startActivity(intent);
+        });
     }
 
     @Override
