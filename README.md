@@ -11,3 +11,5 @@
 
 Можно указать одно значение.
 ![alt text](Screenshot_20210208-162853_VKInfo.jpg "Главный экран")
+![alt text](Screenshot_20210208-162901_VKInfo.jpg "Карточка контакта")
+![alt text](Screenshot_20210208-162907_VKInfo.jpg "Карточка контакта")
