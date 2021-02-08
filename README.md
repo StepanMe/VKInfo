@@ -11,4 +11,4 @@
 ![alt text](Screenshot_20210208-162907_VKInfo.jpg "Карточка контакта")
 
 ## Что-то у меня не работает...
-Скорее всего, нужно указать свой токен в файле NetworkUtils.java (https://github.com/StepanMe/VKInfo/blob/master/app/src/main/java/com/example/vkinfo/utils/NetworkUtils.java).
+Скорее всего, нужно указать свой токен в методе generateURL файла NetworkUtils.java (https://github.com/StepanMe/VKInfo/blob/master/app/src/main/java/com/example/vkinfo/utils/NetworkUtils.java).
